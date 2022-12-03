@@ -16,5 +16,9 @@ if __name__ == "__main__":
         experiment_result[size][1] = player1_win
         experiment_result[size][-1] = tie
 
-    print(experiment_result)
+    for size, result in experiment_result.items():
+        print ("[ Size : %d ]"%size)
+        print("- player 0 win : %d times"%result[0])
+        print("- player 1 win : %d times"%result[1])
+        print("- tie : %d times\n"%result[-1])
 
