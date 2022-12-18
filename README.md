@@ -1,6 +1,7 @@
 # CIS667_project
 
 ## dependencies
+- `random`
 - `numpy`
 - `torch`
 - `matplotlib.pyplot`
@@ -16,6 +17,13 @@
 
 ## Bibliography
 ```bib
+@book{van1995python, 
+  title={The Python Library Reference, release 3.8.2},
+  author={Van Rossum, Guido}, 
+  year={2020}, 
+  publisher={Python Software Foundation} 
+}
+
 @ARTICLE{2020NumPy-Array,
   author  = {Harris, Charles R. and Millman, K. Jarrod and
             van der Walt, Stéfan J and Gommers, Ralf and

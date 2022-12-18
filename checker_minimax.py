@@ -8,7 +8,6 @@
 import numpy as np
 from checker_helpers import *
 import random
-import torch as tr
 from checker_nn import *
 
 # A simple evaluation function that simply uses the current score.
