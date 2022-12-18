@@ -72,6 +72,7 @@ def play_checker(size, player0_strategy, player1_strategy):
         print("Game over, player %d wins." % winner)
 
     player1_score, player2_score = final_score(state)
+    print("Final score : player0 %d - %d player1"%(player1_score, player2_score))
     return winner, player_0_node_count, player_1_node_count, player1_score, player2_score
 if __name__ == "__main__":
 
@@ -100,7 +101,8 @@ if __name__ == "__main__":
             player_strategy[0] = net
         if player_strategy[1] == "nn":
             player_strategy[1] = net
-        play_checker(size, player_strategy[0], player_strategy[1])
+    
+    play_checker(size, player_strategy[0], player_strategy[1])
 
     
 

@@ -232,7 +232,7 @@ def final_score(state: tuple) -> int:
     player, board = state
     player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
     player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
-    if player_0 > player_1:
+    if winner_of(board) == 0:
         player_0 += 10
     else:
         player_1 += 10
@@ -249,12 +249,17 @@ def is_tied(board: list) -> bool:
 # Return the winning player (either 0 or 1) in the given board state.
 # The winner is the player with more disks in their board.
 def winner_of(board: list) -> int:
-    player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
-    player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
-    if player_0 > player_1:
-        return 0
-    else:
-        return 1 # replace with your implementation
+    if valid_actions((0, board)) == []:
+        return 1
+    elif valid_actions((1, board)) == [] :
+        return 0 # replace with your implementation
+
+    # player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
+    # player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
+    # if player_0 > player_1:
+    #     return 0
+    # else:
+    #     return 1 # replace with your implementation
 
 
 def print_board(board: list) -> str:
