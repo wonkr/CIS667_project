@@ -6,6 +6,14 @@
 - `torch`
 - `matplotlib.pyplot`
 
+If you use `pip`, you can install the dependencies with
+```
+pip install random
+pip install numpy
+pip install torch
+pip install matplotlib
+```
+
 ## How to run interactive domain program
 `python3 play_checker.py`
 
@@ -14,6 +22,17 @@
 
 ## How to evaluate neural network
 `python3 evaluate_nn_checker.py`
+
+When you run the evaluate_nn_checker.py script, you can choose what configuration setting to use as below.
+
+```
+Choose configuration settings for a neural network: 
+1. Kyungrok's configuration 
+2. Neda's configuration 
+```
+
+If you want to run it with Kyungrok's configuration, you can input 1 and put enter.
+
 
 ## Bibliography
 ```bib
