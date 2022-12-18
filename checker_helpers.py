@@ -232,10 +232,12 @@ def final_score(state: tuple) -> int:
     player, board = state
     player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
     player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
-    if winner_of(board) == 0:
+    winner = winner_of(board)
+    if winner == 0:
         player_0 += 10
-    else:
+    elif winner == 1:
         player_1 += 10
+    
     return player_0, player_1 
 
 # Return True if the game is tied in the given board state, False otherwise.
@@ -254,12 +256,14 @@ def winner_of(board: list) -> int:
     elif valid_actions((1, board)) == [] :
         return 0 # replace with your implementation
 
-    # player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
-    # player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
-    # if player_0 > player_1:
-    #     return 0
-    # else:
-    #     return 1 # replace with your implementation
+    player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
+    player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
+    if player_0 > player_1:
+        return 0
+    elif player_0 == player_1:
+        return -1
+    else:
+        return 1 # replace with your implementation
 
 
 def print_board(board: list) -> str:

@@ -69,7 +69,10 @@ def play_checker(size, player0_strategy, player1_strategy):
         print("Game over, it is tied.")
     else:
         winner = winner_of(board)
-        print("Game over, player %d wins." % winner)
+        if winner == -1:
+            print("Game over, it is tied")
+        else:
+            print("Game over, player %d wins." % winner)
 
     player1_score, player2_score = final_score(state)
     print("Final score : player0 %d - %d player1"%(player1_score, player2_score))
