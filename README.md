@@ -20,6 +20,55 @@ pip install matplotlib
 ## How to evaluate minimax 
 `python3 evaluate_minimax_checker.py`
 
+Execution example. 
+```
+Choose problem size : 
+1. 4 
+2. 6 
+3. 8 
+4. 10 
+5. 12 
+3 <- input
+Choos player 0 strategy : 
+1. human 
+2. baseline AI 
+3. minimax 
+4. nn 
+1 <- input
+Choos player 1 strategy : 
+1. human 
+2. baseline AI 
+3. minimax 
+4. nn 
+3 <- input
+['_' 'o' '_' 'o' '_' 'o' '_' 'o']
+['o' '_' 'o' '_' 'o' '_' 'o' '_']
+['_' 'o' '_' 'o' '_' 'o' '_' 'o']
+['■' '_' '_' '_' '■' '_' '_' '_']
+['_' '_' '_' '_' '_' '_' '_' '■']
+['x' '_' 'x' '_' 'x' '_' 'x' '_']
+['_' 'x' '_' 'x' '_' 'x' '_' 'x']
+['x' '_' 'x' '_' 'x' '_' 'x' '_']
+--- Player0's turn --->
+Player 0, choose an action : 
+0. (2, 1, 1, 1) 
+1. (2, 3, 1, -1) 
+2. (2, 5, 1, 1) 
+3. (2, 7, 1, -1) 
+0 <- input
+['_' 'o' '_' 'o' '_' 'o' '_' 'o']
+['o' '_' 'o' '_' 'o' '_' 'o' '_']
+['_' '_' '_' 'o' '_' 'o' '_' 'o']
+['■' '_' 'o' '_' '■' '_' '_' '_']
+['_' '_' '_' '_' '_' '_' '_' '■']
+['x' '_' 'x' '_' 'x' '_' 'x' '_']
+['_' 'x' '_' 'x' '_' 'x' '_' 'x']
+['x' '_' 'x' '_' 'x' '_' 'x' '_']
+```
+
+The action (2,1,1,1) represents move disk located in the position (2,1) in the board to move (+1, +1). 
+The disk position will be (3,2) after the move. The column and the row starts from 0 in the board. 
+
 ## How to evaluate neural network
 `python3 evaluate_nn_checker.py`
 
