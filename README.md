@@ -33,6 +33,8 @@ Choose configuration settings for a neural network:
 
 If you want to run it with Kyungrok's configuration, you can input 1 and put enter.
 
+This script will draw 2 plots. When the first plot (learning curve plot) is up, you need to close the window
+to proceed the evaluation tasks. 
 
 ## Bibliography
 ```bib
