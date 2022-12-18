@@ -1,5 +1,13 @@
+#***************************************************************************************/
+#    Title: mancala_checker.py
+#    Author: Katz, G.
+#    Date: n.d.
+#    Availability: hw2 from course CIS667
+#***************************************************************************************/
+
 from checker_helpers import *
 from checker_minimax import minimax, simple_evaluate, baseline
+from checker_nn import *
 
 def get_user_action(state):
     actions = list(map(str, valid_actions(state)))
@@ -19,6 +27,8 @@ def human(state):
 
 def play_checker(size, player0_strategy, player1_strategy):
     state = initial_state(size)
+    player_0_node_count = 0
+    player_1_node_count = 0
 
     while not game_over(state):
 
@@ -29,16 +39,26 @@ def play_checker(size, player0_strategy, player1_strategy):
             # state = perform_action(action, state)
             print("--- Player0's turn --->")
             if player0_strategy == minimax:
-                state, _ = player0_strategy(state)
-            else:
+                state, _, count = player0_strategy(state)
+                player_0_node_count += count
+            elif player0_strategy == human or player0_strategy==baseline:
                 state = player0_strategy(state)
+                player_0_node_count += 1
+            else: 
+                state, _, count = minimax(state, evaluate=player0_strategy)
+                player_0_node_count += count
             #state, _ = minimax(state, max_depth, simple_evaluate)
         else:
             print("--- Player1's turn --->")
             if player1_strategy == minimax:
-                state, _ = player1_strategy(state)
-            else:
+                state, _, count = player1_strategy(state)
+                player_1_node_count += count
+            elif player1_strategy == human or player1_strategy==baseline:
                 state = player1_strategy(state)
+                player_1_node_count += 1
+            else:
+                state, _, count = minimax(state, evaluate=player1_strategy)
+                player_1_node_count += count
     
     player, board = state
     winner = -1
@@ -50,8 +70,8 @@ def play_checker(size, player0_strategy, player1_strategy):
         winner = winner_of(board)
         print("Game over, player %d wins." % winner)
 
-    return winner
-
+    player1_score, player2_score = final_score(state)
+    return winner, player_0_node_count, player_1_node_count, player1_score, player2_score
 if __name__ == "__main__":
 
     size_list = [4, 6, 8, 10, 12]
@@ -62,18 +82,24 @@ if __name__ == "__main__":
     size_select = int(input(size_prompt)) - 1
     size = size_list[size_select]
 
-    strategy_dict = {"human": human, "baseline AI": baseline, "minimax": minimax}
-    strategy_list = list(strategy_dict.keys())
+    strategy_dict = {"human": human, "baseline AI": baseline, "minimax": minimax, "nn": "nn"}
+    config_list = list(strategy_dict.keys())
     player_strategy = {0:None, 1:None}
     for player in player_strategy.keys():
-        strategy_prompt = "Choos player %d strategy : \n"%(player)
-        for i in range(len(strategy_list)):
-            strategy_prompt += "%d. %s \n" %(i+1, strategy_list[i])
+        config_prompt = "Choos player %d strategy : \n"%(player)
+        for i in range(len(config_list)):
+            config_prompt += "%d. %s \n" %(i+1, config_list[i])
 
-        strategy_select = int(input(strategy_prompt)) - 1
-        player_strategy[player] = strategy_dict[strategy_list[strategy_select]]
+        config_select = int(input(config_prompt)) - 1
+        player_strategy[player] = strategy_dict[config_list[config_select]]
 
-    play_checker(size, player_strategy[0], player_strategy[1])
+    if player_strategy[0] == "nn" or player_strategy[1] == "nn":
+        net, curve, baseline_error = train_network_kyungrok(size)
+        if player_strategy[0] == "nn":
+            player_strategy[0] = net
+        if player_strategy[1] == "nn":
+            player_strategy[1] = net
+        play_checker(size, player_strategy[0], player_strategy[1])
 
     
 

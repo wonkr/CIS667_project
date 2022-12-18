@@ -1,6 +1,10 @@
-# ********
-# This file is individualized for NetID kwon01.
-# ********
+#***************************************************************************************/
+#    Title: mancala_helper.py
+#    Author: Katz, G.
+#    Date: n.d.
+#    Availability: hw2 from course CIS667
+#***************************************************************************************/
+
 import numpy as np
 import random
 
@@ -14,16 +18,15 @@ prev_prev_board = None
 inloop = 0
 prev_board = None
 
-# DONE: implement initial_state()
 # Return a (player, board) tuple representing the initial game state
 # The initial player is player 0.
 # board[r,c] is the content at position (r,c) of the board: "W", "B", "x", "X", "o" or "O"
-
+# "W" : white position of a board
+# "B" : black position of a board
 # "o", "O" are a disk of player0
 # "O" is a king disk
 # "x", "X" are a disk of player1
 # "X" is a king disk
-
 
 def initial_state(size:int) -> tuple:
     global SIZE
@@ -63,10 +66,8 @@ def initial_state(size:int) -> tuple:
 
     return (INITIAL_PLAYER, board) # replace with your implementation
 
-# DONE: implement game_over(state)
 # Return True if the game is over, and False otherwise.
 # The game is over once there is no valid_action.
-# Your code should not modify the board list.
 def game_over(state: tuple) -> bool:
     player, board = state
     actions = valid_actions(state)
@@ -92,10 +93,8 @@ def is_king(board, action):
     return is_king
 
     
-# DONE: implement valid_actions(state)
 # state is a (player, board) tuple
 # Return a list of all positions and valid move on the board where the current player can move disks.
-# Your code should not modify the board list.
 def valid_actions(state: tuple) -> list:
     valid_actions = []
     player, board = state
@@ -130,7 +129,7 @@ def valid_actions(state: tuple) -> list:
                     if is_valid_jump(board, player, r, c, dr, dc):
                         valid_actions.append((r,c,dr,dc))
 
-    return valid_actions # replace with your implementation
+    return valid_actions 
 
 def is_valid_move(board, r, c, dr, dc):
     new_r = r + dr
@@ -165,12 +164,7 @@ def is_valid_jump(board, player, r, c, dr, dc):
     return True
 
 
-# TODO: implement play_turn(move, board)
-
 def play_turn(action: tuple, board: list) -> tuple:
-    # Make a copy of the board before anything else
-    # This is important for minimax, so that different nodes do not share the same mutable data
-    # Your code should NOT modify the original input board or else bugs may show up elsewhere
     board = np.copy(board)
     r, c, dr, dc = action
     if board[r][c] == "o":
@@ -208,8 +202,7 @@ def play_turn(action: tuple, board: list) -> tuple:
                 action = (r,c,dr,dc)
                 return play_turn(action, board)
 
-    return (new_player, board) # replace with your implementation
-
+    return (new_player, board) 
 
 def perform_action(action, state):
     player, board = state
@@ -222,7 +215,6 @@ def perform_action(action, state):
     new_player, new_board = play_turn(action, board)
     return new_player, new_board
 
-# DONE: implement score_in(state)
 # state is a (player, board) tuple
 # Return the score in the given state.
 # The score is the number of player 0's disks, minus the number of player 1's disks.
@@ -231,11 +223,20 @@ def score_in(state: tuple) -> int:
     player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
     player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
 
-
     score = player_0 - player_1
     return score 
+    
+# Return the final score of each player in given state
+def final_score(state: tuple) -> int:
+    player, board = state
+    player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
+    player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
+    if player_0 > player_1:
+        player_0 += 10
+    else:
+        player_1 += 10
+    return player_0, player_1 
 
-# DONE: implement is_tied(board)
 # Return True if the game is tied in the given board state, False otherwise.
 # A game is tied if both players have no valid action.
 def is_tied(board: list) -> bool:
@@ -244,11 +245,12 @@ def is_tied(board: list) -> bool:
     else:
         return False # replace with your implementation
 
-# DONE: implement winner_of(board)
 # Return the winning player (either 0 or 1) in the given board state.
 # The winner is the player with more disks in their board.
 def winner_of(board: list) -> int:
-    if disk_count[0] > disk_count[1]:
+    player_0 = np.count_nonzero(board=='o') + np.count_nonzero(board=='O')
+    player_1 = np.count_nonzero(board=='x') + np.count_nonzero(board=='X')
+    if player_0 > player_1:
         return 0
     else:
         return 1 # replace with your implementation
