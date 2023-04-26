@@ -1,5 +1,11 @@
 # CIS667_project
 
+## collaborators
+```
+Kyungrok Won (https://github.com/wonkr)
+Neda Abdolrahimi (https://github.com/NedaABD)
+```
+
 ## dependencies
 - `random`
 - `numpy`
